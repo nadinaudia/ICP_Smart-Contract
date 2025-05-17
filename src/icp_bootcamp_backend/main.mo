@@ -1,5 +1,7 @@
 import Array "mo:base/Array";
 import Text "mo:base/Text";
+// tambah nat
+import Nat  "mo:base/Nat";
 
 actor IcpBootcamp {
   type Candidate = Text;
@@ -80,4 +82,15 @@ actor IcpBootcamp {
   public query func checkVoterStatus(voterName : Text) : async Bool {
     return hasVoted(voterName);
   };
+
+  //fungsi untuk menampilkan hasil vote per kandidat
+  public query func getVoteSummary() : async [Text] {
+  return Array.tabulate<Text>(
+    candidates.size(),
+    func (i) {
+      candidates[i] # ": " # Nat.toText(votes[i]) # " suara"
+    },
+  );
+}
+
 };
